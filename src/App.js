@@ -1,23 +1,15 @@
-import logo from './logo.svg';
-import './App.css';
+import PrimarySearchAppBar from './components/6/Header/Header';
+import NewCodelabzButton from './components/6/Buttons/NewCodelabzButton';
+import ConnectSocials from './components/4/Export';
+import Mail from './components/4/Mail';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <PrimarySearchAppBar />
+      <NewCodelabzButton />
+      <ConnectSocials />
+      <Mail />
     </div>
   );
 }
