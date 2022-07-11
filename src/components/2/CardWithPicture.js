@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -15,10 +15,15 @@ import ShareOutlinedIcon from '@material-ui/icons/ShareOutlined';
 import ChatOutlinedIcon from '@material-ui/icons/ChatOutlined';
 import TurnedInNotOutlinedIcon from '@material-ui/icons/TurnedInNotOutlined';
 import MoreVertOutlinedIcon from '@material-ui/icons/MoreVertOutlined';
+import Button from "@material-ui/core/Button";
+import ButtonGroup from "@material-ui/core/ButtonGroup";
+import ArrowDropDownCircleOutlinedIcon from '@material-ui/icons/ArrowDropDownCircleOutlined';
 import ToggleButton from '@material-ui/lab/ToggleButton';
 import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 import ThumbDownIcon from '@material-ui/icons/ThumbDown';
+import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
+import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -52,12 +57,34 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function CardWithPicture(props) {
+  // const state = { counter: 0 };
+
+  // const handleIncrement = () => {
+  //   this.setState(state => ({ counter: state.counter + 1 }));
+  // };
+
+  // const handleDecrement = () => {
+  //   this.setState(state => ({ counter: state.counter - 1 }));
+  // };
+
+  
   const classes = useStyles();
   const [alignment, setAlignment] = React.useState('left');
-
+  
   const handleAlignment = (event, newAlignment) => {
     setAlignment(newAlignment);
   };
+  
+
+  const[count, setCount] = useState(0);
+  const handleIncrement = () => {
+    setCount(count+1);
+  }
+
+  const handleDecrement = () => {
+    setCount(count-1);
+  }
+  // const displayCounter = this.state.counter > 1;
   return (
     <Card className={classes.root}>
       <CardMedia
@@ -108,7 +135,7 @@ export default function CardWithPicture(props) {
         10 min read
       </Typography>
       <div className={classes.grow} />
-      <ToggleButtonGroup
+      {/* <ToggleButtonGroup
       value={alignment}
       exclusive
       onChange={handleAlignment}
@@ -122,7 +149,11 @@ export default function CardWithPicture(props) {
       <ToggleButton className={classes.icon} value="center" aria-label="Thumbs down">
         <ThumbDownIcon />
       </ToggleButton>
-    </ToggleButtonGroup>
+    </ToggleButtonGroup> */}
+    <ButtonGroup>
+    <button onClick={handleIncrement} ><ArrowUpwardIcon /> <span>{count}</span> </button>
+      <button onClick={handleDecrement}><ArrowDownwardIcon /></button>
+      </ButtonGroup>
         <IconButton aria-label="share">
           <ChatOutlinedIcon />
         </IconButton>
