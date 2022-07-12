@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
+import { createTheme, responsiveFontSizes, ThemeProvider } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -10,11 +11,14 @@ const useStyles = makeStyles((theme) => ({
     display: 'block',
     maxWidth: '100%',
     maxHeight: '100%',
-    [theme.breakpoints.down('sx')]: {
+    [theme.breakpoints.down('xs')]: {
       width: '95%',
     },
+    [theme.breakpoints.up('sm')]: {
+      width: '35%',
+    },
     [theme.breakpoints.up('md')]: {
-      width: '50%',
+      width: '30%',
     },
   },
   head: {
@@ -26,16 +30,20 @@ const useStyles = makeStyles((theme) => ({
 
 function Descrip(props) {
   const classes = useStyles();
+  let theme = createTheme();
+  theme = responsiveFontSizes(theme);
 
   return (
     <Card className={classes.root} variant="outlined">
       <CardContent style={{ backgroundColor: props.backgroundColor }}>
-        <Typography className={classes.head} variant="h5" component="h2">
-          {props.Heading}
-        </Typography>
-        <Typography variant="body2" component="p">
-          {props.Content}
-        </Typography>
+        <ThemeProvider theme={theme}>
+          <Typography className={classes.head} variant="h5" component="h2">
+            {props.Heading}
+          </Typography>
+          <Typography variant="body2" component="p">
+            {props.Content}
+          </Typography>
+        </ThemeProvider>
       </CardContent>
     </Card>
   );

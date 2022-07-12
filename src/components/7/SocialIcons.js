@@ -11,7 +11,8 @@ import LinkIcon from '@material-ui/icons/Link';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        width: '320px',
+        width: '300px',
+        margin: 'auto',
     },
     icon: {
         justifyContent: 'space-around',
