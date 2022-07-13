@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -15,116 +15,144 @@ import TurnedInNotOutlinedIcon from '@material-ui/icons/TurnedInNotOutlined';
 import MoreVertOutlinedIcon from '@material-ui/icons/MoreVertOutlined';
 import ToggleButton from '@material-ui/lab/ToggleButton';
 import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
-import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
-import ThumbDownIcon from '@material-ui/icons/ThumbDown';
+import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
+import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
+import { createTheme, responsiveFontSizes, ThemeProvider } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-        width: '45%',
+  root: {
+    width: '45%',
+    borderRadius: '10px',
+    [theme.breakpoints.down('md')]: {
+      width: '80%',
     },
-    grow: {
-        flexGrow: 1,
+    [theme.breakpoints.down('xs')]: {
+      width: '99%',
     },
-    margin: {
-        marginRight: '5px',
-    },
-    expandOpen: {
-        transform: 'rotate(180deg)',
-    },
-    avatar: {
-        backgroundColor: red[500],
-    },
-    inline: {
-        fontWeight: 600,
-    },
-    contentPadding: {
-        padding: '0 16px',
-    },
-    icon: {
-        padding: '5px',
-    }
+  },
+  grow: {
+    flexGrow: 1,
+  },
+  margin: {
+    marginRight: '5px',
+  },
+  expandOpen: {
+    transform: 'rotate(180deg)',
+  },
+  avatar: {
+    backgroundColor: red[500],
+  },
+  inline: {
+    fontWeight: 600,
+  },
+  contentPadding: {
+    padding: '0 16px',
+  },
+  icon: {
+    padding: '5px',
+  },
+  time: {
+    lineHeight: '1',
+  },
+  small: {
+    padding: '4px',
+  },
 }));
 
-export default function CardWithoutPicture(props) {
-    const classes = useStyles();
-    const [alignment, setAlignment] = React.useState('left');
+export default function CardWithPicture(props) {
+  const classes = useStyles();
+  let theme = createTheme();
+  theme = responsiveFontSizes(theme);
+  const [alignment, setAlignment] = React.useState('left');
+  const [count, setCount] = useState(1);
+  const handleIncrement = () => {
+    setCount(count + 1);
+  }
 
-    const handleAlignment = (event, newAlignment) => {
-        setAlignment(newAlignment);
-    };
-    return (
-        <Card className={classes.root}>
-            <CardHeader
-                avatar={
-                    <Avatar aria-label="recipe" className={classes.avatar}>
-                        S
-                    </Avatar>
-                }
-                title={
-                    <React.Fragment>
-                        <Typography
-                            component="span"
-                            variant="h7"
-                            className={classes.inline}
-                            color="textPrimary"
-                        >
-                            Shahaab
-                        </Typography>
-                        {" for "}
-                        <Typography
-                            component="span"
-                            variant="h7"
-                            className={classes.inline}
-                            color="textPrimary"
-                        >
-                            CodeLabz
-                        </Typography>
-                    </React.Fragment>
-                }
-                subheader="Dec 3, 2022"
-            />
-            <CardContent className={classes.contentPadding} >
-                <Typography variant="h5" color="text.primary">
-                    FreeCodeCamp Especially If You Do Not Have 24/7 Internet Access
-                </Typography>
-                <Typography variant="body2" color="textSecondary" component="p" paragraph>
-                    Make sure your conditions fit with the map. Instead of writing logic handling for each case, We had a map, and we put the case and the logic as key, value pairs. Hence, We can retriev the logic from the map based on the key...
-                </Typography>
-            </CardContent>
-            <CardActions disableSpacing>
-                <Chip label="HTML" component="a" href="#chip" clickable variant="outlined" className={classes.margin} />
-                <Typography variant="overline" display="block" >
-                    10 min read
-                </Typography>
-                <div className={classes.grow} />
-                <ToggleButtonGroup
-                    value={alignment}
-                    exclusive
-                    onChange={handleAlignment}
-                    aria-label="text alignment"
-                >
-                    <ToggleButton className={classes.icon} value="left" aria-label="Thumbs up">
-                        <ThumbUpAltIcon /> <Typography variant="h7" display="block" >
-                            100
-                        </Typography>
-                    </ToggleButton>
-                    <ToggleButton className={classes.icon} value="center" aria-label="Thumbs down">
-                        <ThumbDownIcon />
-                    </ToggleButton>
-                </ToggleButtonGroup>
-                <IconButton aria-label="share">
-                    <ChatOutlinedIcon />
-                </IconButton>
-                <IconButton aria-label="add to favorites">
-                    <ShareOutlinedIcon />
-                </IconButton>
-                <IconButton aria-label="share">
-                    <TurnedInNotOutlinedIcon />
-                </IconButton>
-                <IconButton aria-label="share">
-                    <MoreVertOutlinedIcon />
-                </IconButton>
-            </CardActions>
-        </Card>
-    );
+  const handleDecrement = () => {
+    setCount(count - 1);
+  }
+
+  const handleAlignment = (event, newAlignment) => {
+    setAlignment(newAlignment);
+  };
+
+  return (
+    <Card className={classes.root}>
+      <ThemeProvider theme={theme}>
+        <CardHeader
+          avatar={
+            <Avatar aria-label="recipe" className={classes.avatar}>
+              S
+            </Avatar>
+          }
+          title={
+            <React.Fragment>
+              <Typography
+                component="span"
+                variant="h7"
+                className={classes.inline}
+                color="textPrimary"
+              >
+                {props.name}
+              </Typography>
+              {" for "}
+              <Typography
+                component="span"
+                variant="h7"
+                className={classes.inline}
+                color="textPrimary"
+              >
+                {props.organizationName}
+              </Typography>
+            </React.Fragment>
+          }
+          subheader={props.date}
+        />
+        <CardContent className={classes.contentPadding} >
+          <Typography variant="h5" color="text.primary">
+            {props.title}
+          </Typography>
+          <Typography variant="body2" color="textSecondary" component="p" paragraph>
+            {props.contentDescription}
+          </Typography>
+        </CardContent>
+        <CardActions disableSpacing>
+          <Chip label="HTML" component="a" href="#chip" clickable variant="outlined" className={classes.margin} />
+          <Typography variant="overline" display="block" className={classes.time}>
+            {props.time}
+          </Typography>
+          <div className={classes.grow} />
+          <ToggleButtonGroup
+            size="small"
+            className={classes.small}
+            value={alignment}
+            exclusive
+            onChange={handleAlignment}
+            aria-label="text alignment"
+          >
+            <ToggleButton className={classes.small} onClick={handleIncrement} value="left" aria-label="left aligned">
+              <KeyboardArrowUpIcon />
+              <span>{count}</span>
+            </ToggleButton>
+            <ToggleButton className={classes.small} onClick={handleDecrement} value="center" aria-label="centered">
+              <KeyboardArrowDownIcon />
+            </ToggleButton>
+          </ToggleButtonGroup>
+          <IconButton aria-label="share">
+            <ChatOutlinedIcon />
+          </IconButton>
+          <IconButton aria-label="add to favorites">
+            <ShareOutlinedIcon />
+          </IconButton>
+          <IconButton aria-label="share">
+            <TurnedInNotOutlinedIcon />
+          </IconButton>
+          <IconButton aria-label="share">
+            <MoreVertOutlinedIcon />
+          </IconButton>
+        </CardActions>
+      </ThemeProvider>
+    </Card>
+  );
 }
